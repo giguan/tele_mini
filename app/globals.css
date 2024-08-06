@@ -1,9 +1,0 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-body {
-  font-family: var(--font-noto-sans-kr), var(--font-roboto), sans-serif;
-  background-color: #16171d; /* 어두운 배경색 */
-  color: white; /* 기본 글자색 */
-}

@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scroll-container:active {
+  cursor: grabbing;
+}
+
+.scroll-container {
+  scroll-snap-type: x mandatory;
+  overflow-x: scroll;
+  display: flex;
+  cursor: grab;
+  user-select: none; /* 드래그할 때 텍스트가 선택되지 않도록 설정 */
+}
+
+.scroll-item {
+  scroll-snap-align: center;
+  flex: 0 0 auto;
+}
+
+.active {
+  background-color: #9627C9; /* 원하는 active 효과 색상 */
+  border: 1px solid #9e19c7;
+  color: #fff;
+}
+
+@keyframes slideDown {
+  0% {
+    max-height: 0;
+    opacity: 0;
+  }
+  100% {
+    max-height: 1000px; /* 충분히 큰 값으로 설정 */
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    max-height: 1000px; /* 충분히 큰 값으로 설정 */
+    opacity: 1;
+  }
+  100% {
+    max-height: 0;
+    opacity: 0;
+  }
+}
+
+.slide-down {
+  animation: slideDown 2s ease forwards;
+}
+
+.slide-up {
+  animation: slideUp 4s ease backwards;
+}
+
+/* style.css */
+@keyframes moveToFloatButton {
+  from {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  to {
+    transform: translate(var(--move-x), var(--move-y));
+    opacity: 0;
+  }
+}
+
+.moving-circle {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background-color: #9627C9; /* 원하는 색상으로 변경 */
+  border-radius: 50%;
+  pointer-events: none;
+  animation: moveToFloatButton 0.6s ease forwards;
+}
