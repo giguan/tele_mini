@@ -5,6 +5,8 @@ import './style.css';
 import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
+import { BetSlipProvider } from "app/context/BetSlipContext";
+
 
 const SportsLayout = ({
   children,
@@ -50,7 +52,7 @@ const SportsLayout = ({
   };
 
   return (
-    <>  
+    <BetSlipProvider>  
       {/* Top Menu 영역 */}
       <div 
         className="fixed top-0 left-1/2 transform -translate-x-1/2 w-full h-16 max-w-xl bg-header-footer-gradient flex justify-around items-center z-50 text-xs"
@@ -158,7 +160,7 @@ const SportsLayout = ({
         {children}
       </main>
       <Menu />
-    </>
+    </BetSlipProvider>
   );
 };
 

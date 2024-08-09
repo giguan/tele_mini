@@ -3,17 +3,20 @@ import Match from '@/components/match';
 import { MatchData } from 'types/match';
 
 interface MatchListProps {
-    matches: MatchData[];
+  gameData: any;
+  handleButtonClick: (buttonId: string, e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   }
   
-  const MatchList: React.FC<MatchListProps> = ({ matches }) => {
+  const MatchList: React.FC<MatchListProps> = ({ gameData, handleButtonClick,  }) => {
     return (
       <div>
-        {matches.map((match) => (
-          <Match key={match.id} match={match} />
-        ))}
+
+        {gameData.map((game: any) => 
+          <Match key={game.id} game={game} handleButtonClick={handleButtonClick} />
+        
+        )}
       </div>
     );
   };
   
-  export default MatchList;
+  export default React.memo(MatchList);

@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-const fetcher = <Data>(url: string, userId: string) => 
-
+const userFetcher = <Data>(url: string, userId: string) => 
 
     axios
     .get(`${url}?userId=${userId}`, {
@@ -11,4 +10,4 @@ const fetcher = <Data>(url: string, userId: string) =>
     .catch(() => console.log("sssssssss",url))
 
 
-export default fetcher;
+export default userFetcher;

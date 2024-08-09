@@ -39,7 +39,7 @@ export default function RootLayout({
       if (user) {
         setUserData(user);
         axios.post('/api/user', {
-          userId: user.id,
+          user_id: user.id,
           first_name: user.first_name,
           last_name: user.last_name
         })
@@ -57,7 +57,7 @@ export default function RootLayout({
     if (userData) {
 
       axios.post('/api/user', { 
-        userId: userData.id,
+        user_id: userData.id,
         first_name: userData.first_name,
         last_name: userData.last_name
       })
