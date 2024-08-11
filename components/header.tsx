@@ -1,5 +1,6 @@
 import { useUser } from "app/UserContext";
 import Image from "next/image";
+import React from "react";
 import useSWR from "swr";
 
 const fetcher = (url: string) => fetch(url).then((res) => {
@@ -10,7 +11,7 @@ const Header = () => {
 
   const { userData } = useUser();
 
-  const { data, error } = useSWR(userData ? `/api/user/${userData.id}` : null, fetcher);
+  // const { data, error } = useSWR(userData ? `/api/user/${userData.id}` : null, fetcher);
 
     return (
         <header className="fixed top-0 left-1/2 transform -translate-x-1/2 w-full h-16 max-w-xl bg-header-footer-gradient flex justify-around items-center z-50 text-xs">
@@ -29,7 +30,7 @@ const Header = () => {
                 <p className="text-xs text-[#85827d] font-medium">보유 금액</p>
                 <div className="flex items-center justify-center space-x-1">
                   {/* <img src={dollarCoin} alt="Dollar Coin" className="w-[18px] h-[18px]" /> */}
-                  <p className="text-sm">{data ? data.money : 0 }</p>
+                  <p className="text-sm">{userData ? userData?.money : 0 }</p>
                   {/* <Info size={20} className="text-[#43433b]" /> */}
                 </div>
               </div>
@@ -46,4 +47,4 @@ const Header = () => {
     )
 }
 
-export default Header;
+export default React.memo(Header);

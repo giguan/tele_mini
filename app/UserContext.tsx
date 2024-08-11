@@ -3,6 +3,7 @@
 import React, { createContext, useContext, ReactNode } from 'react';
 
 interface ITeleUser {
+  money: number;
   id: string;
   first_name: string;
   last_name: string;

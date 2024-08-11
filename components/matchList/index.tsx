@@ -4,7 +4,7 @@ import { MatchData } from 'types/match';
 
 interface MatchListProps {
   gameData: any;
-  handleButtonClick: (buttonId: string, e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  handleButtonClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   }
   
   const MatchList: React.FC<MatchListProps> = ({ gameData, handleButtonClick,  }) => {

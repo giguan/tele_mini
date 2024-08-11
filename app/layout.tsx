@@ -7,17 +7,20 @@ import { createContext, useEffect, useState } from "react";
 import WebApp from "@twa-dev/sdk";
 import axios from "axios";
 import { UserProvider } from "./UserContext";
+import { MessageProvider } from './context/MessageContext';
 
 interface ITeleUser {
   id: string;
   first_name: string;
   last_name: string;
+  money : number;
 }
 
 interface UserContextProps {
   userData: ITeleUser | null;
 }
 const UserContext = createContext<UserContextProps | undefined>(undefined);
+
 
 // export const metadata: Metadata = {
 //   title: "Telegram Mini App",
@@ -43,8 +46,11 @@ export default function RootLayout({
           first_name: user.first_name,
           last_name: user.last_name
         })
-          .then((res) => {
-            console.log("User saved successfully");
+        .then((res) => {
+          setUserData({
+            ...user,
+            money: res.data.money,
+          });
           })
           .catch((error) => {
             console.log("Error occurred", error);
@@ -55,7 +61,6 @@ export default function RootLayout({
 
   useEffect(() => {
     if (userData) {
-
       axios.post('/api/user', { 
         user_id: userData.id,
         first_name: userData.first_name,
@@ -78,7 +83,9 @@ export default function RootLayout({
       </head>
       <body className="bg-dark-bg text-white min-h-screen flex flex-col">
         <UserProvider value={userData}>
-          {children}
+          <MessageProvider>
+            {children}
+          </MessageProvider>
         </UserProvider>
       </body>
     </html>

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import React from "react";
 import { useEffect } from "react";
 
 const footerHeight = 60;
@@ -89,4 +90,4 @@ const Menu = () => {
     )
 }
 
-export default Menu;
+export default React.memo(Menu);

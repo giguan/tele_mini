@@ -31,8 +31,6 @@ const Games = () => {
   const [newGame, setNewGame] = useState({ name: '', date: '', description: '', price: '', discount: '' });
   const [editingGame, setEditingGame] = useState<Game | null>(null);
 
-
-
   const [selectedGame, setSelectedGame] = useState<any>(null);
   const [showOddsSettingModal, setShowOddsSettingModal] = useState(false);
 
@@ -86,7 +84,7 @@ const Games = () => {
         </thead>
         <tbody>
           {gameData && gameData.map((game: any) => (
-            <tr key={game.id} className="border-t cursor-pointer" onClick={() => handleEditClick(game)}>
+            <tr key={game.id} className="border-t cursor-pointer hover:bg-blue-100" onClick={() => handleEditClick(game)}>
             <td className="py-2 px-4 text-center">{game.seasonName.split(' ')[0]}</td>
             <td className="py-2 px-4 text-center">
               <div>{game.gameDate.split('T')[0]}</div>
@@ -100,7 +98,7 @@ const Games = () => {
                   width={20}
                   height={20}
                 />  
-              <span className="ml-2">{game.awayTeamName}</span>
+              <span className="ml-2">{game.homeShortName}</span>
             </div>
 
             </td>
@@ -112,7 +110,7 @@ const Games = () => {
                     width={20}
                     height={20}
                   />  
-                <span className="ml-2">{game.awayTeamName}</span>
+                <span className="ml-2">{game.awayShortName}</span>
               </div>
             </td>
             <td>
@@ -135,25 +133,27 @@ const Games = () => {
             </div>
 
             </td>
-            <td className="py-2 px-4 text-center flex justify-center space-x-2">
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleEditClick(game);
-                }}
-                className="bg-blue-500 text-white px-4 py-2 rounded"
-              >
-                Update
-              </button>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setGames(games.filter(g => g.id !== game.id));
-                }}
-                className="bg-red-500 text-white px-4 py-2 rounded"
-              >
-                Delete
-              </button>
+            <td className="py-2 px-4 text-center">
+              <div className="flex justify-center items-center space-x-2">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleEditClick(game);
+                  }}
+                  className="bg-blue-500 text-white px-4 py-2 rounded"
+                >
+                  Update
+                </button>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setGames(games.filter(g => g.id !== game.id));
+                  }}
+                  className="bg-red-500 text-white px-4 py-2 rounded"
+                >
+                  Delete
+                </button>
+              </div>
             </td>
           </tr>
           ))}

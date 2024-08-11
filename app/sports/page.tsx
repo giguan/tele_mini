@@ -7,6 +7,8 @@ import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from 'react';
 import useSWR from "swr";
 import { useBetSlip } from 'app/context/BetSlipContext';
+import React from "react";
+import { useUser } from "app/UserContext";
 
 
 interface ButtonState {
@@ -16,63 +18,31 @@ interface ButtonState {
 
 const Sports = () => {
   
+  const { userData } = useUser();
+
   const { data: gameData, error, mutate } = useSWR(`/api/games`, fetcher);
 
-  const { selectedOdds } = useBetSlip();
+  const { selectedOdds, isBetSlipVisible, toggleBetSlip } = useBetSlip();
  
-  const [activeButtons, setActiveButtons] = useState<ButtonState[]>([]);
   const [circleStyle, setCircleStyle] = useState<React.CSSProperties | null>(null);
 
-  const handleButtonClick = (buttonId: string, e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    
+  const handleButtonClick = useCallback((e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const clientX = e.clientX;
-        const clientY = e.clientY;
-        const floatButtonElement = document.querySelector('.float-button') as HTMLDivElement;
-        const floatButtonRect = floatButtonElement.getBoundingClientRect();
+    const clientY = e.clientY;
+    const floatButtonElement = document.querySelector('.float-button') as HTMLDivElement;
+    const floatButtonRect = floatButtonElement.getBoundingClientRect();
 
-        const moveX = floatButtonRect.left - clientX + (floatButtonRect.width / 2);
-        const moveY = floatButtonRect.top - clientY + (floatButtonRect.height / 2);
+    const moveX = floatButtonRect.left - clientX + (floatButtonRect.width / 2);
+    const moveY = floatButtonRect.top - clientY + (floatButtonRect.height / 2);
 
-        setCircleStyle(() => ({
-          left: clientX + window.scrollX,
-          top: clientY + window.scrollY,
-          '--move-x': `${moveX}px`,
-          '--move-y': `${moveY}px`,
-          opacity: 1,
-        } as React.CSSProperties));
-  };
-
-  // const handleButtonClick = (buttonId: string, e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    
-  //   setActiveButtons((prev) => {
-  //     const buttonIndex = prev.findIndex((button) => button.id === buttonId);
-  //     if (buttonIndex > -1) {
-  //       // 버튼이 이미 배열에 있는 경우 배열에서 제거
-  //       // setBadgeCount((prev) => prev - 1);
-  //       return prev.filter((button) => button.id !== buttonId);
-  //     } else {
-  //       // 버튼이 배열에 없는 경우 배열에 추가
-  //       const clientX = e.clientX;
-  //       const clientY = e.clientY;
-  //       const floatButtonElement = document.querySelector('.float-button') as HTMLDivElement;
-  //       const floatButtonRect = floatButtonElement.getBoundingClientRect();
-
-  //       const moveX = floatButtonRect.left - clientX + (floatButtonRect.width / 2);
-  //       const moveY = floatButtonRect.top - clientY + (floatButtonRect.height / 2);
-
-  //       setCircleStyle(() => ({
-  //         left: clientX + window.scrollX,
-  //         top: clientY + window.scrollY,
-  //         '--move-x': `${moveX}px`,
-  //         '--move-y': `${moveY}px`,
-  //         opacity: 1,
-  //       } as React.CSSProperties));
-
-  //       // setBadgeCount((prev) => prev + 1);
-  //       return [...prev, { id: buttonId, isActive: true }];
-  //     }
-  //   });
-  // };
+    setCircleStyle(() => ({
+      left: clientX + window.scrollX,
+      top: clientY + window.scrollY,
+      '--move-x': `${moveX}px`,
+      '--move-y': `${moveY}px`,
+      opacity: 1,
+    } as React.CSSProperties));
+  }, []);
 
   useEffect(() => {
     if (circleStyle) {
@@ -91,13 +61,6 @@ const Sports = () => {
       { src: '/images/soccer.jpg', alt: 'Banner 3' },
     ];
 
-  const [isBetSlipVisible, setIsBetSlipVisible] = useState(false);
-
-  const toggleBetSlip = useCallback(() => {
-    setIsBetSlipVisible(!isBetSlipVisible);
-  }, [isBetSlipVisible]);
-  
-
   if(!gameData) return 
 
   return (
@@ -105,7 +68,6 @@ const Sports = () => {
 
       {/* 메인 이미지 섹션 */}
       <div className="relative w-full h-64 rounded-lg overflow-hidden mb-4">
-      {/* <div className="absolute top-0 left-0 right-0 h-full w-full bg-black opacity-50 z-10"></div> */}
         <Image
           src="/images/soccer-field.jpg" // 주신 이미지로 대체하세요
           alt="Main Banner"
@@ -115,7 +77,6 @@ const Sports = () => {
         />
         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
           <h2 className="text-white text-xl font-bold">최대 10 ETH까지 200% 레이크백 보너스!</h2>
-          {/* <button className="mt-2 bg-orange-500 text-white px-4 py-2 rounded">지금 배팅</button> */}
         </div>
       </div>
 
@@ -136,7 +97,6 @@ const Sports = () => {
                   />
               ))}
           </div>
-          
       </div>
 
       {/* 경기 섹션 */}
@@ -173,4 +133,4 @@ const Sports = () => {
   )
 }
 
-export default Sports;
+export default React.memo(Sports);
