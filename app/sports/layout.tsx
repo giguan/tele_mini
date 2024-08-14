@@ -149,14 +149,36 @@ const SportsLayout = ({
                 />
               </Link>
             </div>
-            <a href="#" className="text-lg scroll-item">하키</a>
+            <div className="text-center ml-2 scroll-item">
+              <Link href="hockey">
+                <Image
+                  src={"/images/menu-icon/hockey.png"}
+                  alt="Hockey Icon"
+                  className="w-10 h-10 mx-auto object-contain invert filter brightness-0"
+                  width={40}
+                  height={40}
+                />
+              </Link>
+            </div>
+
+            <div className="text-center ml-2 scroll-item">
+              <Link href="league-of-legends">
+                <Image
+                  src={"/images/menu-icon/league-of-legends.png"}
+                  alt="league-of-legends Icon"
+                  className="w-12 h-10 mx-auto object-contain invert filter brightness-0"
+                  width={40}
+                  height={40}
+                />
+              </Link>
+            </div>
             
           </div>
         </div>
       </div>
 
       {/* 컨텐츠 영역 */}
-      <main className="bg-dark-bg text-white min-h-screen flex flex-col">
+      <main className="p-4 flex justify-center shadow-inner  ">
         {children}
       </main>
       <Menu />

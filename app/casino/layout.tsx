@@ -9,7 +9,7 @@ export default function DefaultLayout({children,}: Readonly<{children: React.Rea
     <html lang="en">
       <body className="bg-dark-bg text-white min-h-screen flex flex-col">
         <Header />
-        <main className="bg-content-gradient p-4 flex-grow shadow-inner">
+        <main className="bg-content-gradient p-4 flex justify-center shadow-inner ">
             {children}
         </main>
         <Menu />

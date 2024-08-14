@@ -64,7 +64,7 @@ const Sports = () => {
   if(!gameData) return 
 
   return (
-      <div className="p-4">
+      <div className="p-4 flex justify-center flex-col w-full max-w-xl">
 
       {/* 메인 이미지 섹션 */}
       <div className="relative w-full h-64 rounded-lg overflow-hidden mb-4">

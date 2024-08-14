@@ -2,12 +2,28 @@
 
 import Image from "next/image";
 import DefaultLayout from './casino/layout';
+import useSWR from "swr";
+import fetcher from "@/utils/fetcher";
+import { useUser } from "./UserContext";
+import VisitModal from "@/components/visitmodal";
+import { useEffect, useState } from "react";
 
 export default function Home() {
 
+  const { userData, mutate } = useUser();
+
+  const [isModalOpen, setIsModalOpen] = useState(true);
+
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  // if(!userData) return;
+
   return (
     <DefaultLayout>
-      <div className="p-4">
+      <div className="p-4 flex justify-center flex-col w-full max-w-xl">
         {/* 메인 이미지 섹션 */}
         <div className="relative w-full h-64 rounded-lg overflow-hidden mb-4">
           <Image
@@ -151,6 +167,8 @@ export default function Home() {
           {/* 추가된 게임 제공사 이미지들 */}
         </div>
       </div>
+
+      {userData?.isFirstVisit && <VisitModal isOpen={isModalOpen} onClose={handleCloseModal} onClaim={(prize) => (handleCloseModal)} />}
 
       </div>
     </DefaultLayout>

@@ -1,0 +1,176 @@
+/* components/Roulette.css */
+
+/* 기본 스타일 */
+.roulette-container {
+  position: relative;
+  margin: 0 auto;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.roulette-wheel {
+  width: 100%;
+  height: 100%;
+  transition: transform 4s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+/* 중앙 버튼 위치 및 크기 조정 */
+.center-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.spin-button {
+  background: transparent;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+}
+
+/* 호버 시 확대 및 그림자 효과 추가 */
+.center-button:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5), 0 0 30px rgba(255, 255, 255, 0.7);
+}
+
+/* 핀 위치 및 크기 조정 */
+.pin {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  width: 200px;
+  height: 200px;
+}
+
+/* 룰렛판 이미지 크기 조정 */
+.wheel-image {
+  width: 100%;
+  height: 100%;
+}
+
+/* 전체 화면 깜빡임 효과 */
+@keyframes flash-background {
+  0%, 100% {
+    background-color: black;
+  }
+  50% {
+    background-color: #f39c12;
+  }
+}
+
+.highlight {
+  animation: flash-background 0.5s infinite;
+}
+
+/* 전체 당첨 화면 스타일 */
+.winning-screen {
+  position: fixed;
+  top: 0; /* 맨 위에서 시작하도록 수정 */
+  left: 0;
+  width: 100vw; /* 전체 너비를 차지하도록 설정 */
+  height: 100vh; /* 전체 높이를 차지하도록 설정 */
+  background: rgba(0, 0, 0, 0.5); /* 반투명한 어두운 배경 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: show-winning-screen 0.5s ease-in-out forwards;
+}
+
+/* 텍스트 스타일 */
+.winning-message {
+  text-align: center;
+  color: white;
+  font-size: 60px;
+  font-weight: bold;
+  padding: 20px;
+  background: linear-gradient(90deg, #f50078, #3b1258);
+  border-radius: 15px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+  animation: winning-text-glow 1.5s infinite alternate;
+}
+
+/* 금액 스타일 */
+.winning-amount {
+  font-size: 80px;
+  font-weight: bold;
+  color: #ffd700;
+  text-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700, 0 0 30px #ffd700;
+  margin-top: 20px;
+}
+
+/* 돈이 아래서 위로 올라오는 효과 */
+@keyframes move-money-to-header {
+  0% {
+    transform: translate(var(--start-x), var(--start-y)) scale(0.5) rotate(0deg);
+    opacity: 1;
+  }
+  98% {
+    transform: translate(50%, -600px) scale(1) rotate(720deg); /* 헤더 중앙으로 이동 */
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.money {
+  position: absolute;
+  bottom: 0;
+  width: 50px;
+  height: 50px;
+  opacity: 0;
+  animation: move-money-to-header 2s ease-in-out forwards;
+}
+
+/* 배경 화면 나타나는 효과 */
+@keyframes show-winning-screen {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* 텍스트가 빛나고 커지는 효과 */
+@keyframes winning-text-glow {
+  0% {
+    transform: scale(1);
+    text-shadow: 0 0 10px #fff, 0 0 20px #ff6f61, 0 0 30px #ff5ef1;
+  }
+  100% {
+    transform: scale(1.05);
+    text-shadow: 0 0 20px #fff, 0 0 30px #ff6f61, 0 0 40px #ff5ef1;
+  }
+}
+
+/* .close-button {
+  position: absolute;
+  bottom: 150px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  padding: 10px 20px;
+  background-color: #f50057;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+} */
+
+/* .close-button:hover {
+  background-color: #c51162;
+} */
